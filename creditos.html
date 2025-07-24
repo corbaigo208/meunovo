@@ -83,11 +83,9 @@
     </style>
 </head>
 <body class="bg-gray-50 font-sans pb-16">
-    <!-- Floating Bee Animation -->
     <div class="fixed top-20 right-10 z-0 opacity-10 floating hidden md:block">
         <i class="fas fa-bug text-yellow-500 text-6xl"></i>
     </div>
-    <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-30">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
@@ -101,15 +99,14 @@
                         <i class="fas fa-coins"></i>
                     </button>
                     <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center badge-animation">+55</span>
-                    <!-- Credit Tooltip -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-3 hidden group-hover:block z-40 animate__animated animate__fadeIn">
                         <p class="text-sm text-gray-700">Você tem <span class="font-bold">120 créditos</span></p>
                         <div class="progress-bar mt-2">
                             <div class="progress-fill" style="width: 60%"></div>
                         </div>
-                        <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors">
+                        <a href="creditos.html" class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors block text-center">
                             Comprar mais
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="relative group">
@@ -117,7 +114,6 @@
                         <i class="fas fa-bell"></i>
                     </button>
                     <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                    <!-- Notifications Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="border-b px-4 py-2 bg-gray-50">
                             <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
@@ -166,7 +162,6 @@
                     <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
                     </div>
-                    <!-- Profile Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="px-4 py-3 border-b">
                             <p class="text-sm font-medium text-gray-900">João Silva</p>
@@ -193,9 +188,7 @@
             </div>
         </div>
     </header>
-    <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
-        <!-- Credit Balance -->
         <section class="mb-8 animate__animated animate__fadeIn">
             <div class="gradient-bg rounded-xl shadow-md p-6 text-white">
                 <div class="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -210,8 +203,7 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Purchase Credits -->
+
         <section class="mb-8 animate__animated animate__fadeIn animate__delay-1s">
             <h2 class="text-lg font-semibold text-gray-800 mb-4">Comprar mais créditos</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -256,8 +248,7 @@
                 </div>
             </div>
         </section>
-        
-        <!-- How Credits Work -->
+
         <section class="mb-8 animate__animated animate__fadeIn animate__delay-2s">
             <h2 class="text-lg font-semibold text-gray-800 mb-4">Como os créditos funcionam?</h2>
             <div class="bg-white rounded-xl shadow-sm p-6">
@@ -292,8 +283,7 @@
                 </div>
             </div>
         </section>
-        
-        <!-- Transaction History -->
+
         <section class="animate__animated animate__fadeIn animate__delay-3s">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-gray-800">Histórico de transações</h2>
@@ -359,11 +349,9 @@
             </div>
         </section>
     </main>
-    <!-- Chat Bubble -->
     <div class="chat-bubble animate__animated animate__bounceInUp animate__delay-2s">
         <i class="fas fa-comment-dots"></i>
     </div>
-    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-20">
         <div class="container mx-auto px-4">
             <div class="flex justify-around">
@@ -393,32 +381,50 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Modal elements
-            const creditModal = document.getElementById('creditModal');
-            const closeModal = document.getElementById('closeModal');
-            const creditButton = document.getElementById('creditButton');
-            const creditOptions = document.querySelectorAll('.credit-option');
-            
-            // Open credit modal
-            creditButton.addEventListener('click', function() {
-                creditModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-            
-            // Close modals
-            closeModal.addEventListener('click', function() {
-                creditModal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modals when clicking outside
-            creditModal.addEventListener('click', function(e) {
-                if (e.target === creditModal) {
-                    creditModal.classList.add('hidden');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Credit option selection
+            const creditModal = document.getElementById('creditModal'); // Note: This modal is not present in creditos.html, but the JS references it. Keeping for consistency with other files.
+            const closeModal = document.getElementById('closeModal'); // Note: This button is not present in creditos.html, but the JS references it. Keeping for consistency.
+            const creditButton = document.getElementById('creditButton'); // This button is for the tooltip, not a modal open.
+            const creditOptions = document.querySelectorAll('.credit-option'); // These elements are not present in creditos.html.
+
+            // The 'creditButton' in this file is actually the one in the header that opens a tooltip, not a modal.
+            // Therefore, the modal logic below for 'creditButton' click will not directly apply to the header button in this specific file.
+            // However, the 'Comprar mais' button inside the tooltip now links directly to creditos.html, which is more appropriate here.
+
+            // Since there is no 'creditModal' or 'closeModal' in 'creditos.html' (they are in 'index.html' and 'buscar.html'),
+            // the following event listeners related to them will not have an effect.
+            // If a modal for purchasing credits is intended on this page, it needs to be added to the HTML structure.
+
+            // Open credit modal (this part won't work as no creditModal exists on this page)
+            if (creditButton) { // Check if the button exists before adding listener
+                creditButton.addEventListener('click', function() {
+                    if (creditModal) {
+                        creditModal.classList.remove('hidden');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            }
+
+            // Close modals (this part won't work as no closeModal exists on this page)
+            if (closeModal) { // Check if the button exists before adding listener
+                closeModal.addEventListener('click', function() {
+                    if (creditModal) {
+                        creditModal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+
+            // Close modals when clicking outside (this part won't work as no creditModal exists on this page)
+            if (creditModal) { // Check if the modal exists before adding listener
+                creditModal.addEventListener('click', function(e) {
+                    if (e.target === creditModal) {
+                        creditModal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+
+            // Credit option selection (these elements are not present in creditos.html)
             creditOptions.forEach(option => {
                 option.addEventListener('click', function() {
                     creditOptions.forEach(opt => opt.classList.remove('border-yellow-500', 'bg-yellow-50'));
