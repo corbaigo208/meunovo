@@ -111,7 +111,7 @@
                     </button>
                     <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
                     <!-- Notifications Dropdown -->
-                    <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 animate__animated animate__fadeIn">
+                    <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="border-b px-4 py-2 bg-gray-50">
                             <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
                         </div>
@@ -166,7 +166,7 @@
                             <p class="text-xs text-gray-500">Nível 3 - Abelha Trabalhadora</p>
                         </div>
                         <div class="divide-y">
-                            <a href="perfil.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                                 <i class="fas fa-user mr-2 text-gray-500"></i> Perfil
                             </a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
@@ -193,15 +193,11 @@
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <div class="flex flex-col md:flex-row items-center">
                     <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden mb-4 md:mb-0 md:mr-6">
-                        <img id="profileImage" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de Perfil" class="w-full h-full object-cover">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="João Silva" class="w-full h-full object-cover">
                     </div>
                     <div class="flex-1 text-center md:text-left">
-                        <h2 id="profileNameDisplay" class="text-2xl font-bold text-gray-800">João Silva</h2>
-                        <input type="text" id="profileNameInput" class="hidden w-full text-2xl font-bold text-gray-800 bg-gray-50 rounded-lg py-1 px-2 mb-2" placeholder="Seu Nome">
-                        
-                        <p id="profileRoleDisplay" class="text-gray-600 mb-2">Pedreiro Especializado</p>
-                        <input type="text" id="profileRoleInput" class="hidden w-full text-gray-600 bg-gray-50 rounded-lg py-1 px-2 mb-2" placeholder="Sua Profissão/Função">
-
+                        <h2 class="text-2xl font-bold text-gray-800">João Silva</h2>
+                        <p class="text-gray-600 mb-2">Pedreiro Especializado</p>
                         <div class="flex items-center justify-center md:justify-start mb-3">
                             <div class="flex items-center text-yellow-400 mr-4">
                                 <i class="fas fa-star"></i>
@@ -214,20 +210,14 @@
                             <div class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Online</div>
                         </div>
                         <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                            <span id="profileLocationDisplay" class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">São Paulo, SP</span>
-                            <input type="text" id="profileLocationInput" class="hidden bg-gray-50 rounded-lg py-1 px-2 text-xs" placeholder="Sua Localização">
-
-                            <span id="profileMemberSinceDisplay" class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Membro desde 2022</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">São Paulo, SP</span>
+                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Membro desde 2022</span>
                             <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">Nível 3 - Abelha Trabalhadora</span>
                         </div>
-                        <p id="userIdDisplay" class="text-gray-500 text-xs mt-2">ID do Usuário: Carregando...</p>
                     </div>
                     <div class="mt-4 md:mt-0">
-                        <button id="editProfileButton" class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md">
+                        <button class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md">
                             <i class="fas fa-edit mr-2"></i> Editar Perfil
-                        </button>
-                        <button id="saveProfileButton" class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md hidden">
-                            <i class="fas fa-save mr-2"></i> Salvar Alterações
                         </button>
                     </div>
                 </div>
@@ -277,12 +267,16 @@
         <section class="mb-8 animate__animated animate__fadeIn animate__delay-2s">
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Sobre Mim</h3>
-                <p id="profileBioDisplay" class="text-gray-700 mb-4">
+                <p class="text-gray-700 mb-4">
                     Sou pedreiro especializado em reformas residenciais com mais de 10 anos de experiência. 
                     Trabalho com qualidade, pontualidade e transparência. Realizo serviços de alvenaria, 
                     azulejos, bancadas, pintura e pequenos reparos.
                 </p>
-                <textarea id="profileBioInput" class="hidden w-full bg-gray-50 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" rows="5" placeholder="Fale um pouco sobre você e seus serviços."></textarea>
+                <p class="text-gray-700">
+                    Possuo ferramentas próprias e veículo para transporte de materiais. 
+                    Aceito pagamentos via Money Bee ou dinheiro. 
+                    Disponível de segunda a sábado, das 8h às 18h.
+                </p>
             </div>
         </section>
         
@@ -434,163 +428,13 @@
             </div>
         </div>
     </nav>
-    <script type="module">
-        // Importa as funções necessárias do Firebase SDK
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Configuração do Firebase (variáveis globais fornecidas pelo ambiente Canvas)
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Inicializa o Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const auth = getAuth(app);
-
-        let userId = null; // Variável para armazenar o ID do usuário
-
-        // Função para exibir um toast (notificação temporária)
-        function showToast(message) {
-            const toast = document.createElement('div');
-            toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg text-sm animate__animated animate__fadeInUp';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.classList.remove('animate__fadeInUp');
-                toast.classList.add('animate__fadeOutDown');
-                
-                setTimeout(() => {
-                    toast.remove();
-                }, 500);
-            }, 3000);
-        }
-
-        // Função para alternar entre modo de visualização e edição
-        function toggleEditMode(isEditing) {
-            const displayElements = document.querySelectorAll('[id$="Display"]'); // Seleciona todos os elementos com ID terminando em "Display"
-            const inputElements = document.querySelectorAll('[id$="Input"]');   // Seleciona todos os elementos com ID terminando em "Input"
-
-            if (isEditing) {
-                displayElements.forEach(el => el.classList.add('hidden'));
-                inputElements.forEach(el => el.classList.remove('hidden'));
-                document.getElementById('editProfileButton').classList.add('hidden');
-                document.getElementById('saveProfileButton').classList.remove('hidden');
-            } else {
-                displayElements.forEach(el => el.classList.remove('hidden'));
-                inputElements.forEach(el => el.classList.add('hidden'));
-                document.getElementById('editProfileButton').classList.remove('hidden');
-                document.getElementById('saveProfileButton').classList.add('hidden');
-            }
-        }
-
-        // Função para carregar os dados do perfil do Firestore
-        async function loadProfileData(currentUserId) {
-            if (!currentUserId) {
-                console.log("loadProfileData: userId não disponível.");
-                return;
-            }
-
-            const profileDocRef = doc(db, `artifacts/${appId}/users/${currentUserId}/perfil/dados`);
-
-            // Usa onSnapshot para ouvir mudanças em tempo real no perfil
-            onSnapshot(profileDocRef, (docSnap) => {
-                if (docSnap.exists()) {
-                    const profileData = docSnap.data();
-                    document.getElementById('profileNameDisplay').textContent = profileData.nome || 'Nome do Usuário';
-                    document.getElementById('profileNameInput').value = profileData.nome || '';
-                    
-                    document.getElementById('profileRoleDisplay').textContent = profileData.profissao || 'Profissão/Função';
-                    document.getElementById('profileRoleInput').value = profileData.profissao || '';
-
-                    document.getElementById('profileLocationDisplay').textContent = profileData.localizacao || 'Localização';
-                    document.getElementById('profileLocationInput').value = profileData.localizacao || '';
-
-                    document.getElementById('profileBioDisplay').textContent = profileData.bio || 'Fale um pouco sobre você e seus serviços.';
-                    document.getElementById('profileBioInput').value = profileData.bio || '';
-
-                    // Atualiza a imagem de perfil se houver uma URL
-                    if (profileData.fotoPerfilUrl) {
-                        document.getElementById('profileImage').src = profileData.fotoPerfilUrl;
-                    } else {
-                        document.getElementById('profileImage').src = 'https://randomuser.me/api/portraits/men/32.jpg'; // Imagem padrão
-                    }
-
-                    // Exibe o ID do usuário
-                    document.getElementById('userIdDisplay').textContent = `ID do Usuário: ${currentUserId}`;
-
-                    // Atualiza a data de membro desde (se disponível)
-                    if (profileData.membroDesde && profileData.membroDesde.toDate) {
-                        const memberDate = profileData.membroDesde.toDate();
-                        document.getElementById('profileMemberSinceDisplay').textContent = `Membro desde ${memberDate.getFullYear()}`;
-                    } else {
-                        document.getElementById('profileMemberSinceDisplay').textContent = `Membro desde 2022`; // Valor padrão
-                    }
-
-                    showToast('Dados do perfil carregados!');
-                } else {
-                    console.log("Nenhum documento de perfil encontrado para este usuário. Criando um perfil padrão.");
-                    // Se não houver perfil, cria um padrão
-                    setDoc(profileDocRef, {
-                        nome: 'Novo Usuário Money Bee',
-                        profissao: 'Seu Cargo',
-                        localizacao: 'Sua Cidade, UF',
-                        bio: 'Bem-vindo ao Money Bee! Edite seu perfil para contar mais sobre você.',
-                        fotoPerfilUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
-                        membroDesde: new Date()
-                    }).then(() => {
-                        showToast('Perfil padrão criado!');
-                    }).catch(error => {
-                        console.error("Erro ao criar perfil padrão:", error);
-                        showToast('Erro ao criar perfil padrão.');
-                    });
-                }
-            }, (error) => {
-                console.error("Erro ao carregar perfil em tempo real:", error);
-                showToast('Erro ao carregar perfil.');
-            });
-        }
-
-        // Função para salvar os dados do perfil no Firestore
-        async function saveProfileData() {
-            if (!userId) {
-                showToast('Erro: Usuário não autenticado.');
-                return;
-            }
-
-            const profileDocRef = doc(db, `artifacts/${appId}/users/${userId}/perfil/dados`);
-            const updatedProfileData = {
-                nome: document.getElementById('profileNameInput').value,
-                profissao: document.getElementById('profileRoleInput').value,
-                localizacao: document.getElementById('profileLocationInput').value,
-                bio: document.getElementById('profileBioInput').value,
-                // fotoPerfilUrl não é editável diretamente aqui, mas manteremos o valor existente
-                ultimaAtualizacao: new Date()
-            };
-
-            try {
-                await setDoc(profileDocRef, updatedProfileData, { merge: true });
-                showToast('Perfil atualizado com sucesso!');
-                toggleEditMode(false); // Volta para o modo de visualização
-            } catch (error) {
-                console.error("Erro ao salvar perfil:", error);
-                showToast('Erro ao salvar perfil. Tente novamente.');
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', async function() {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
             // Modal elements
             const creditModal = document.getElementById('creditModal');
             const closeModal = document.getElementById('closeModal');
             const creditButton = document.getElementById('creditButton');
             const creditOptions = document.querySelectorAll('.credit-option');
-
-            // Profile elements
-            const editProfileButton = document.getElementById('editProfileButton');
-            const saveProfileButton = document.getElementById('saveProfileButton');
             
             // Open credit modal
             creditButton.addEventListener('click', function() {
@@ -619,38 +463,7 @@
                     this.classList.add('border-yellow-500', 'bg-yellow-50');
                 });
             });
-
-            // Autentica o usuário
-            try {
-                if (initialAuthToken) {
-                    await signInWithCustomToken(auth, initialAuthToken);
-                } else {
-                    await signInAnonymously(auth);
-                }
-                showToast('Autenticação Firebase bem-sucedida!');
-            } catch (error) {
-                console.error("Erro na autenticação Firebase:", error);
-                showToast('Erro na autenticação Firebase.');
-            }
-
-            // Listener para o estado de autenticação
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    userId = user.uid;
-                    console.log("Usuário autenticado:", userId);
-                    loadProfileData(userId); // Carrega os dados do perfil assim que o usuário estiver autenticado
-                } else {
-                    userId = null;
-                    console.log("Nenhum usuário autenticado.");
-                    document.getElementById('userIdDisplay').textContent = 'ID do Usuário: Não autenticado';
-                }
-            });
-
-            // Event listeners para os botões de edição e salvamento
-            editProfileButton.addEventListener('click', () => toggleEditMode(true));
-            saveProfileButton.addEventListener('click', saveProfileData);
         });
     </script>
 </body>
 </html>
-
