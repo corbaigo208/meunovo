@@ -95,11 +95,9 @@
     </style>
 </head>
 <body class="bg-gray-50 font-sans pb-16">
-    <!-- Floating Bee Animation -->
     <div class="fixed top-20 right-10 z-0 opacity-10 floating hidden md:block">
         <i class="fas fa-bug text-yellow-500 text-6xl"></i>
     </div>
-    <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-30">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
@@ -113,15 +111,14 @@
                         <i class="fas fa-coins"></i>
                     </button>
                     <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center badge-animation">+55</span>
-                    <!-- Credit Tooltip -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-3 hidden group-hover:block z-40 animate__animated animate__fadeIn">
                         <p class="text-sm text-gray-700">Você tem <span class="font-bold">120 créditos</span></p>
                         <div class="progress-bar mt-2">
                             <div class="progress-fill" style="width: 60%"></div>
                         </div>
-                        <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors">
+                        <a href="creditos.html" class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors block text-center">
                             Comprar mais
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="relative group">
@@ -129,7 +126,6 @@
                         <i class="fas fa-bell"></i>
                     </button>
                     <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                    <!-- Notifications Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="border-b px-4 py-2 bg-gray-50">
                             <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
@@ -178,7 +174,6 @@
                     <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
                     </div>
-                    <!-- Profile Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="px-4 py-3 border-b">
                             <p class="text-sm font-medium text-gray-900">João Silva</p>
@@ -205,9 +200,7 @@
             </div>
         </div>
     </header>
-    <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
-        <!-- Page Header -->
         <section class="mb-8 animate__animated animate__fadeIn">
             <div class="flex items-center mb-4">
                 <a href="index.html" class="text-gray-500 hover:text-gray-700 mr-3">
@@ -217,13 +210,11 @@
             </div>
             <div class="bg-white rounded-xl shadow-sm p-6">
                 <form>
-                    <!-- Service Title -->
                     <div class="mb-6">
                         <label for="serviceTitle" class="block text-gray-700 font-medium mb-2">Título do Serviço</label>
                         <input type="text" id="serviceTitle" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Ex: Reforma de cozinha completa">
                     </div>
-                    
-                    <!-- Category -->
+
                     <div class="mb-6">
                         <label class="block text-gray-700 font-medium mb-2">Categoria</label>
                         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
@@ -265,14 +256,12 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Description -->
+
                     <div class="mb-6">
                         <label for="serviceDescription" class="block text-gray-700 font-medium mb-2">Descrição Detalhada</label>
                         <textarea id="serviceDescription" rows="5" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Descreva detalhadamente o serviço que você oferece, incluindo materiais, prazos, garantias, etc."></textarea>
                     </div>
-                    
-                    <!-- Location -->
+
                     <div class="mb-6">
                         <label for="serviceLocation" class="block text-gray-700 font-medium mb-2">Localização</label>
                         <div class="flex">
@@ -282,14 +271,12 @@
                             </button>
                         </div>
                     </div>
-                    
-                    <!-- Tags -->
+
                     <div class="mb-6">
                         <label for="serviceTags" class="block text-gray-700 font-medium mb-2">Tags (opcional)</label>
                         <input type="text" id="serviceTags" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Ex: cozinha, azulejo, bancada (separadas por vírgula)">
                     </div>
-                    
-                    <!-- Budget -->
+
                     <div class="mb-6">
                         <label class="block text-gray-700 font-medium mb-2">Orçamento</label>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -304,8 +291,7 @@
                         </div>
                         <p class="text-gray-500 text-sm mt-2">Deixe em branco se o valor for combinado diretamente com o cliente.</p>
                     </div>
-                    
-                    <!-- Images -->
+
                     <div class="mb-8">
                         <label class="block text-gray-700 font-medium mb-2">Fotos do Serviço (opcional)</label>
                         <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
@@ -318,11 +304,9 @@
                             </button>
                         </div>
                         <div id="imagePreview" class="mt-4 flex flex-wrap gap-4">
-                            <!-- Image previews will be added here dynamically -->
-                        </div>
+                            </div>
                     </div>
-                    
-                    <!-- Submit Button -->
+
                     <div class="flex justify-end">
                         <button type="submit" class="gradient-bg hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md">
                             <i class="fas fa-paper-plane mr-2"></i> Publicar Serviço
@@ -332,11 +316,9 @@
             </div>
         </section>
     </main>
-    <!-- Chat Bubble -->
     <div class="chat-bubble animate__animated animate__bounceInUp animate__delay-2s">
         <i class="fas fa-comment-dots"></i>
     </div>
-    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-20">
         <div class="container mx-auto px-4">
             <div class="flex justify-around">
@@ -363,7 +345,6 @@
             </div>
         </div>
     </nav>
-    <!-- Credit Purchase Modal -->
     <div id="creditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden animate__animated animate__fadeIn">
         <div class="bg-white rounded-xl w-full max-w-md mx-4 overflow-hidden animate__animated animate__zoomIn">
             <div class="gradient-bg p-4 text-white">
@@ -438,32 +419,38 @@
             const closeModal = document.getElementById('closeModal');
             const creditButton = document.getElementById('creditButton');
             const creditOptions = document.querySelectorAll('.credit-option');
-            
+
             // Image upload elements
             const fileInput = document.getElementById('fileInput');
             const uploadButton = document.getElementById('uploadButton');
             const imagePreview = document.getElementById('imagePreview');
-            
+
             // Open credit modal
-            creditButton.addEventListener('click', function() {
-                creditModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-            
+            if (creditButton && creditModal) { // Adicionando verificação para garantir que os elementos existem
+                creditButton.addEventListener('click', function() {
+                    creditModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
             // Close modals
-            closeModal.addEventListener('click', function() {
-                creditModal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modals when clicking outside
-            creditModal.addEventListener('click', function(e) {
-                if (e.target === creditModal) {
+            if (closeModal && creditModal) { // Adicionando verificação para garantir que os elementos existem
+                closeModal.addEventListener('click', function() {
                     creditModal.classList.add('hidden');
                     document.body.style.overflow = 'auto';
-                }
-            });
-            
+                });
+            }
+
+            // Close modals when clicking outside
+            if (creditModal) { // Adicionando verificação para garantir que o elemento existe
+                creditModal.addEventListener('click', function(e) {
+                    if (e.target === creditModal) {
+                        creditModal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+
             // Credit option selection
             creditOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -471,41 +458,43 @@
                     this.classList.add('border-yellow-500', 'bg-yellow-50');
                 });
             });
-            
+
             // Image upload
-            uploadButton.addEventListener('click', function() {
-                fileInput.click();
-            });
-            
-            fileInput.addEventListener('change', function(e) {
-                const files = e.target.files;
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    if (file.type.match('image.*')) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            const imgContainer = document.createElement('div');
-                            imgContainer.className = 'image-preview';
-                            
-                            const img = document.createElement('img');
-                            img.src = e.target.result;
-                            img.className = 'h-24 w-24 object-cover rounded';
-                            
-                            const removeBtn = document.createElement('div');
-                            removeBtn.className = 'remove-image';
-                            removeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                            removeBtn.addEventListener('click', function() {
-                                imgContainer.remove();
-                            });
-                            
-                            imgContainer.appendChild(img);
-                            imgContainer.appendChild(removeBtn);
-                            imagePreview.appendChild(imgContainer);
-                        };
-                        reader.readAsDataURL(file);
+            if (uploadButton && fileInput && imagePreview) { // Adicionando verificação para garantir que os elementos existem
+                uploadButton.addEventListener('click', function() {
+                    fileInput.click();
+                });
+
+                fileInput.addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const imgContainer = document.createElement('div');
+                                imgContainer.className = 'image-preview';
+
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.className = 'h-24 w-24 object-cover rounded';
+
+                                const removeBtn = document.createElement('div');
+                                removeBtn.className = 'remove-image';
+                                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                                removeBtn.addEventListener('click', function() {
+                                    imgContainer.remove();
+                                });
+
+                                imgContainer.appendChild(img);
+                                imgContainer.appendChild(removeBtn);
+                                imagePreview.appendChild(imgContainer);
+                            };
+                            reader.readAsDataURL(file);
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 </body>
