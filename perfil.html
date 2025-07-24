@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Bee - Meu Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+        }
+        .nav-item {
+            position: relative;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #f59e0b;
+            border-radius: 50%;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #f59e0b;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 40;
+            transition: all 0.3s ease;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+        }
+        .badge-animation {
+            animation: bounce 0.8s ease infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans pb-16">
+    <!-- Floating Bee Animation -->
+    <div class="fixed top-20 right-10 z-0 opacity-10 floating hidden md:block">
+        <i class="fas fa-bug text-yellow-500 text-6xl"></i>
+    </div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-bug text-yellow-500 text-2xl animate__animated animate__pulse animate__infinite"></i>
+                <h1 class="text-xl font-bold text-gray-800">Money Bee</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative group">
+                    <button id="creditButton" class="gradient-bg hover:opacity-90 text-white font-semibold px-4 py-2 rounded-full flex items-center space-x-1 transition-all shadow-md">
+                        <span class="font-bold">120</span>
+                        <i class="fas fa-coins"></i>
+                    </button>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center badge-animation">+55</span>
+                    <!-- Credit Tooltip -->
+                    <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-3 hidden group-hover:block z-40 animate__animated animate__fadeIn">
+                        <p class="text-sm text-gray-700">Você tem <span class="font-bold">120 créditos</span></p>
+                        <div class="progress-bar mt-2">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors">
+                            Comprar mais
+                        </button>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-full transition-colors">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                    <!-- Notifications Dropdown -->
+                    <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 animate__animated animate__fadeIn">
+                        <div class="border-b px-4 py-2 bg-gray-50">
+                            <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
+                        </div>
+                        <div class="divide-y">
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">+55 créditos adicionados</p>
+                                        <p class="text-xs text-gray-500">Há 2 horas</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">Novo interesse no seu serviço</p>
+                                        <p class="text-xs text-gray-500">Ontem</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-green-100 text-green-600 p-2 rounded-full">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">Serviço concluído com sucesso</p>
+                                        <p class="text-xs text-gray-500">2 dias atrás</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="border-t px-4 py-2 bg-gray-50 text-center">
+                            <a href="#" class="text-sm text-yellow-600 font-medium hover:underline">Ver todas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Profile Dropdown -->
+                    <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
+                        <div class="px-4 py-3 border-b">
+                            <p class="text-sm font-medium text-gray-900">João Silva</p>
+                            <p class="text-xs text-gray-500">Nível 3 - Abelha Trabalhadora</p>
+                        </div>
+                        <div class="divide-y">
+                            <a href="perfil.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-user mr-2 text-gray-500"></i> Perfil
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-cog mr-2 text-gray-500"></i> Configurações
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-question-circle mr-2 text-gray-500"></i> Ajuda
+                            </a>
+                        </div>
+                        <div class="px-4 py-2 bg-gray-50">
+                            <a href="#" class="text-sm text-gray-700 hover:text-gray-900 font-medium flex items-center">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Profile Header -->
+        <section class="mb-8 animate__animated animate__fadeIn">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden mb-4 md:mb-0 md:mr-6">
+                        <img id="profileImage" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Foto de Perfil" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h2 id="profileNameDisplay" class="text-2xl font-bold text-gray-800">João Silva</h2>
+                        <input type="text" id="profileNameInput" class="hidden w-full text-2xl font-bold text-gray-800 bg-gray-50 rounded-lg py-1 px-2 mb-2" placeholder="Seu Nome">
+                        
+                        <p id="profileRoleDisplay" class="text-gray-600 mb-2">Pedreiro Especializado</p>
+                        <input type="text" id="profileRoleInput" class="hidden w-full text-gray-600 bg-gray-50 rounded-lg py-1 px-2 mb-2" placeholder="Sua Profissão/Função">
+
+                        <div class="flex items-center justify-center md:justify-start mb-3">
+                            <div class="flex items-center text-yellow-400 mr-4">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                                <span class="text-gray-600 text-sm ml-1">4.5 (24 avaliações)</span>
+                            </div>
+                            <div class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Online</div>
+                        </div>
+                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
+                            <span id="profileLocationDisplay" class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">São Paulo, SP</span>
+                            <input type="text" id="profileLocationInput" class="hidden bg-gray-50 rounded-lg py-1 px-2 text-xs" placeholder="Sua Localização">
+
+                            <span id="profileMemberSinceDisplay" class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Membro desde 2022</span>
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">Nível 3 - Abelha Trabalhadora</span>
+                        </div>
+                        <p id="userIdDisplay" class="text-gray-500 text-xs mt-2">ID do Usuário: Carregando...</p>
+                    </div>
+                    <div class="mt-4 md:mt-0">
+                        <button id="editProfileButton" class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md">
+                            <i class="fas fa-edit mr-2"></i> Editar Perfil
+                        </button>
+                        <button id="saveProfileButton" class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md hidden">
+                            <i class="fas fa-save mr-2"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Stats and Progress -->
+        <section class="mb-8 animate__animated animate__fadeIn animate__delay-1s">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-center">
+                        <div class="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-briefcase text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Serviços Concluídos</p>
+                            <p class="text-2xl font-bold text-gray-800">42</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-center">
+                        <div class="bg-green-100 text-green-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-comment-dollar text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Receita Total</p>
+                            <p class="text-2xl font-bold text-gray-800">R$ 12.450</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-center">
+                        <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full mr-4">
+                            <i class="fas fa-medal text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm">Nível Atual</p>
+                            <p class="text-2xl font-bold text-gray-800">3</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Me -->
+        <section class="mb-8 animate__animated animate__fadeIn animate__delay-2s">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Sobre Mim</h3>
+                <p id="profileBioDisplay" class="text-gray-700 mb-4">
+                    Sou pedreiro especializado em reformas residenciais com mais de 10 anos de experiência. 
+                    Trabalho com qualidade, pontualidade e transparência. Realizo serviços de alvenaria, 
+                    azulejos, bancadas, pintura e pequenos reparos.
+                </p>
+                <textarea id="profileBioInput" class="hidden w-full bg-gray-50 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" rows="5" placeholder="Fale um pouco sobre você e seus serviços."></textarea>
+            </div>
+        </section>
+        
+        <!-- Services Offered -->
+        <section class="mb-8 animate__animated animate__fadeIn animate__delay-3s">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Serviços Oferecidos</h3>
+                <button class="text-sm text-yellow-600 font-medium hover:underline">
+                    <i class="fas fa-plus mr-1"></i> Adicionar Serviço
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-gray-800">Reforma de Cozinha</h4>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">Reforma completa de cozinhas, incluindo remoção de azulejos antigos, aplicação de novos azulejos e instalação de bancadas.</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Alvenaria</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Azulejo</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Bancada</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700 font-semibold">R$ 1.200 - R$ 2.500</span>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-500 hover:text-yellow-600">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-red-600">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-semibold text-gray-800">Instalação de Piso</h4>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
+                    </div>
+                    <p class="text-gray-600 text-sm mb-3">Instalação de pisos cerâmicos, porcelanatos e laminados em áreas residenciais.</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Piso</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Cerâmica</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Porcelanato</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-gray-700 font-semibold">R$ 80/m²</span>
+                        <div class="flex space-x-2">
+                            <button class="text-gray-500 hover:text-yellow-600">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="text-gray-500 hover:text-red-600">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Reviews -->
+        <section class="animate__animated animate__fadeIn animate__delay-4s">
+            <h3 class="text-lg font-semibold text-gray-800 mb-4">Avaliações Recebidas (24)</h3>
+            <div class="space-y-4">
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana Silva" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <h4 class="font-semibold text-gray-800">Ana Silva</h4>
+                                <span class="text-gray-500 text-sm">2 dias atrás</span>
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">5.0</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Excelente trabalho na reforma da minha cozinha! João foi pontual, profissional e fez um trabalho de alta qualidade. Recomendo muito!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-4">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Mendes" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between">
+                                <h4 class="font-semibold text-gray-800">Carlos Mendes</h4>
+                                <span class="text-gray-500 text-sm">1 semana atrás</span>
+                            </div>
+                            <div class="flex items-center mb-2">
+                                <div class="flex text-yellow-400">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star-half-alt"></i>
+                                </div>
+                                <span class="text-gray-600 text-sm ml-2">4.5</span>
+                            </div>
+                            <p class="text-gray-700">
+                                João fez um bom trabalho na instalação do piso da minha sala. Único ponto negativo foi um pequeno atraso na entrega, mas o resultado compensou.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Chat Bubble -->
+    <div class="chat-bubble animate__animated animate__bounceInUp animate__delay-2s">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-20">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around">
+                <a href="index.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-home text-xl"></i>
+                    <span class="text-xs mt-1">Início</span>
+                </a>
+                <a href="buscar.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-search text-xl"></i>
+                    <span class="text-xs mt-1">Buscar</span>
+                </a>
+                <a href="novo-servico.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-plus-circle text-xl"></i>
+                    <span class="text-xs mt-1">Novo</span>
+                </a>
+                <a href="creditos.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-wallet text-xl"></i>
+                    <span class="text-xs mt-1">Créditos</span>
+                </a>
+                <a href="perfil.html" class="py-3 px-4 flex flex-col items-center text-yellow-500 nav-item active">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="text-xs mt-1">Perfil</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <script type="module">
+        // Importa as funções necessárias do Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Configuração do Firebase (variáveis globais fornecidas pelo ambiente Canvas)
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        let userId = null; // Variável para armazenar o ID do usuário
+
+        // Função para exibir um toast (notificação temporária)
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-full shadow-lg text-sm animate__animated animate__fadeInUp';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('animate__fadeInUp');
+                toast.classList.add('animate__fadeOutDown');
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 500);
+            }, 3000);
+        }
+
+        // Função para alternar entre modo de visualização e edição
+        function toggleEditMode(isEditing) {
+            const displayElements = document.querySelectorAll('[id$="Display"]'); // Seleciona todos os elementos com ID terminando em "Display"
+            const inputElements = document.querySelectorAll('[id$="Input"]');   // Seleciona todos os elementos com ID terminando em "Input"
+
+            if (isEditing) {
+                displayElements.forEach(el => el.classList.add('hidden'));
+                inputElements.forEach(el => el.classList.remove('hidden'));
+                document.getElementById('editProfileButton').classList.add('hidden');
+                document.getElementById('saveProfileButton').classList.remove('hidden');
+            } else {
+                displayElements.forEach(el => el.classList.remove('hidden'));
+                inputElements.forEach(el => el.classList.add('hidden'));
+                document.getElementById('editProfileButton').classList.remove('hidden');
+                document.getElementById('saveProfileButton').classList.add('hidden');
+            }
+        }
+
+        // Função para carregar os dados do perfil do Firestore
+        async function loadProfileData(currentUserId) {
+            if (!currentUserId) {
+                console.log("loadProfileData: userId não disponível.");
+                return;
+            }
+
+            const profileDocRef = doc(db, `artifacts/${appId}/users/${currentUserId}/perfil/dados`);
+
+            // Usa onSnapshot para ouvir mudanças em tempo real no perfil
+            onSnapshot(profileDocRef, (docSnap) => {
+                if (docSnap.exists()) {
+                    const profileData = docSnap.data();
+                    document.getElementById('profileNameDisplay').textContent = profileData.nome || 'Nome do Usuário';
+                    document.getElementById('profileNameInput').value = profileData.nome || '';
+                    
+                    document.getElementById('profileRoleDisplay').textContent = profileData.profissao || 'Profissão/Função';
+                    document.getElementById('profileRoleInput').value = profileData.profissao || '';
+
+                    document.getElementById('profileLocationDisplay').textContent = profileData.localizacao || 'Localização';
+                    document.getElementById('profileLocationInput').value = profileData.localizacao || '';
+
+                    document.getElementById('profileBioDisplay').textContent = profileData.bio || 'Fale um pouco sobre você e seus serviços.';
+                    document.getElementById('profileBioInput').value = profileData.bio || '';
+
+                    // Atualiza a imagem de perfil se houver uma URL
+                    if (profileData.fotoPerfilUrl) {
+                        document.getElementById('profileImage').src = profileData.fotoPerfilUrl;
+                    } else {
+                        document.getElementById('profileImage').src = 'https://randomuser.me/api/portraits/men/32.jpg'; // Imagem padrão
+                    }
+
+                    // Exibe o ID do usuário
+                    document.getElementById('userIdDisplay').textContent = `ID do Usuário: ${currentUserId}`;
+
+                    // Atualiza a data de membro desde (se disponível)
+                    if (profileData.membroDesde && profileData.membroDesde.toDate) {
+                        const memberDate = profileData.membroDesde.toDate();
+                        document.getElementById('profileMemberSinceDisplay').textContent = `Membro desde ${memberDate.getFullYear()}`;
+                    } else {
+                        document.getElementById('profileMemberSinceDisplay').textContent = `Membro desde 2022`; // Valor padrão
+                    }
+
+                    showToast('Dados do perfil carregados!');
+                } else {
+                    console.log("Nenhum documento de perfil encontrado para este usuário. Criando um perfil padrão.");
+                    // Se não houver perfil, cria um padrão
+                    setDoc(profileDocRef, {
+                        nome: 'Novo Usuário Money Bee',
+                        profissao: 'Seu Cargo',
+                        localizacao: 'Sua Cidade, UF',
+                        bio: 'Bem-vindo ao Money Bee! Edite seu perfil para contar mais sobre você.',
+                        fotoPerfilUrl: 'https://randomuser.me/api/portraits/men/32.jpg',
+                        membroDesde: new Date()
+                    }).then(() => {
+                        showToast('Perfil padrão criado!');
+                    }).catch(error => {
+                        console.error("Erro ao criar perfil padrão:", error);
+                        showToast('Erro ao criar perfil padrão.');
+                    });
+                }
+            }, (error) => {
+                console.error("Erro ao carregar perfil em tempo real:", error);
+                showToast('Erro ao carregar perfil.');
+            });
+        }
+
+        // Função para salvar os dados do perfil no Firestore
+        async function saveProfileData() {
+            if (!userId) {
+                showToast('Erro: Usuário não autenticado.');
+                return;
+            }
+
+            const profileDocRef = doc(db, `artifacts/${appId}/users/${userId}/perfil/dados`);
+            const updatedProfileData = {
+                nome: document.getElementById('profileNameInput').value,
+                profissao: document.getElementById('profileRoleInput').value,
+                localizacao: document.getElementById('profileLocationInput').value,
+                bio: document.getElementById('profileBioInput').value,
+                // fotoPerfilUrl não é editável diretamente aqui, mas manteremos o valor existente
+                ultimaAtualizacao: new Date()
+            };
+
+            try {
+                await setDoc(profileDocRef, updatedProfileData, { merge: true });
+                showToast('Perfil atualizado com sucesso!');
+                toggleEditMode(false); // Volta para o modo de visualização
+            } catch (error) {
+                console.error("Erro ao salvar perfil:", error);
+                showToast('Erro ao salvar perfil. Tente novamente.');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Modal elements
+            const creditModal = document.getElementById('creditModal');
+            const closeModal = document.getElementById('closeModal');
+            const creditButton = document.getElementById('creditButton');
+            const creditOptions = document.querySelectorAll('.credit-option');
+
+            // Profile elements
+            const editProfileButton = document.getElementById('editProfileButton');
+            const saveProfileButton = document.getElementById('saveProfileButton');
+            
+            // Open credit modal
+            creditButton.addEventListener('click', function() {
+                creditModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close modals
+            closeModal.addEventListener('click', function() {
+                creditModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modals when clicking outside
+            creditModal.addEventListener('click', function(e) {
+                if (e.target === creditModal) {
+                    creditModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Credit option selection
+            creditOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    creditOptions.forEach(opt => opt.classList.remove('border-yellow-500', 'bg-yellow-50'));
+                    this.classList.add('border-yellow-500', 'bg-yellow-50');
+                });
+            });
+
+            // Autentica o usuário
+            try {
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                showToast('Autenticação Firebase bem-sucedida!');
+            } catch (error) {
+                console.error("Erro na autenticação Firebase:", error);
+                showToast('Erro na autenticação Firebase.');
+            }
+
+            // Listener para o estado de autenticação
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    userId = user.uid;
+                    console.log("Usuário autenticado:", userId);
+                    loadProfileData(userId); // Carrega os dados do perfil assim que o usuário estiver autenticado
+                } else {
+                    userId = null;
+                    console.log("Nenhum usuário autenticado.");
+                    document.getElementById('userIdDisplay').textContent = 'ID do Usuário: Não autenticado';
+                }
+            });
+
+            // Event listeners para os botões de edição e salvamento
+            editProfileButton.addEventListener('click', () => toggleEditMode(true));
+            saveProfileButton.addEventListener('click', saveProfileData);
+        });
+    </script>
+</body>
+</html>
+

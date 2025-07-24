@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Money Bee - Buscar Serviços</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        .blur-image {
+            filter: blur(5px);
+            transition: filter 0.5s ease;
+        }
+        .blur-image:hover {
+            filter: blur(0);
+        }
+        .premium-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            transition: all 0.5s ease;
+            opacity: 1;
+        }
+        .premium-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .credit-chip {
+            animation: pulse 2s infinite;
+            cursor: pointer;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(245, 158, 11, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 100%);
+        }
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-item {
+            position: relative;
+        }
+        .nav-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background-color: #f59e0b;
+            border-radius: 50%;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: #e5e7eb;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #f59e0b;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        .chat-bubble {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #f59e0b;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            z-index: 40;
+            transition: all 0.3s ease;
+        }
+        .chat-bubble:hover {
+            transform: scale(1.1);
+        }
+        .badge-animation {
+            animation: bounce 0.8s ease infinite alternate;
+        }
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-5px); }
+        }
+        .slide-in {
+            animation: slideIn 0.5s forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* Filter sidebar */
+        .filter-sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 50;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+        .filter-sidebar.open {
+            right: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans pb-16">
+    <!-- Floating Bee Animation -->
+    <div class="fixed top-20 right-10 z-0 opacity-10 floating hidden md:block">
+        <i class="fas fa-bug text-yellow-500 text-6xl"></i>
+    </div>
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-30">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-bug text-yellow-500 text-2xl animate__animated animate__pulse animate__infinite"></i>
+                <h1 class="text-xl font-bold text-gray-800">Money Bee</h1>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative group">
+                    <button id="creditButton" class="gradient-bg hover:opacity-90 text-white font-semibold px-4 py-2 rounded-full flex items-center space-x-1 transition-all shadow-md">
+                        <span class="font-bold">120</span>
+                        <i class="fas fa-coins"></i>
+                    </button>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center badge-animation">+55</span>
+                    <!-- Credit Tooltip -->
+                    <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-3 hidden group-hover:block z-40 animate__animated animate__fadeIn">
+                        <p class="text-sm text-gray-700">Você tem <span class="font-bold">120 créditos</span></p>
+                        <div class="progress-bar mt-2">
+                            <div class="progress-fill" style="width: 60%"></div>
+                        </div>
+                        <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors">
+                            Comprar mais
+                        </button>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 p-2 rounded-full transition-colors">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                    <!-- Notifications Dropdown -->
+                    <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
+                        <div class="border-b px-4 py-2 bg-gray-50">
+                            <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
+                        </div>
+                        <div class="divide-y">
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-yellow-100 text-yellow-600 p-2 rounded-full">
+                                        <i class="fas fa-coins"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">+55 créditos adicionados</p>
+                                        <p class="text-xs text-gray-500">Há 2 horas</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-blue-100 text-blue-600 p-2 rounded-full">
+                                        <i class="fas fa-comment"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">Novo interesse no seu serviço</p>
+                                        <p class="text-xs text-gray-500">Ontem</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="#" class="block px-4 py-3 hover:bg-gray-50 transition-colors">
+                                <div class="flex items-start space-x-3">
+                                    <div class="bg-green-100 text-green-600 p-2 rounded-full">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium">Serviço concluído com sucesso</p>
+                                        <p class="text-xs text-gray-500">2 dias atrás</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="border-t px-4 py-2 bg-gray-50 text-center">
+                            <a href="#" class="text-sm text-yellow-600 font-medium hover:underline">Ver todas</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Profile Dropdown -->
+                    <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
+                        <div class="px-4 py-3 border-b">
+                            <p class="text-sm font-medium text-gray-900">João Silva</p>
+                            <p class="text-xs text-gray-500">Nível 3 - Abelha Trabalhadora</p>
+                        </div>
+                        <div class="divide-y">
+                            <a href="perfil.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-user mr-2 text-gray-500"></i> Perfil
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-cog mr-2 text-gray-500"></i> Configurações
+                            </a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                                <i class="fas fa-question-circle mr-2 text-gray-500"></i> Ajuda
+                            </a>
+                        </div>
+                        <div class="px-4 py-2 bg-gray-50">
+                            <a href="#" class="text-sm text-gray-700 hover:text-gray-900 font-medium flex items-center">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Sair
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-6">
+        <!-- Search and Filters -->
+        <section class="mb-8 animate__animated animate__fadeIn">
+            <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar serviços, profissionais..." class="w-full bg-gray-50 rounded-lg py-3 px-4 pl-10 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all">
+                    <i class="fas fa-search absolute left-3 top-3.5 text-gray-400"></i>
+                    <button id="filterButton" class="absolute right-3 top-2.5 bg-yellow-500 hover:bg-yellow-600 text-white p-2 rounded-full transition-colors">
+                        <i class="fas fa-sliders-h text-sm"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-800">Resultados da busca</h2>
+                <span class="text-sm text-gray-600">12 serviços encontrados</span>
+            </div>
+        </section>
+        
+        <!-- Services List -->
+        <section class="animate__animated animate__fadeIn animate__delay-1s">
+            <!-- Service Card 1 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-4 service-card animate__animated animate__fadeIn">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Reforma de cozinha" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 flex items-center">
+                                <span class="bg-yellow-100 text-yellow-800 p-1 rounded mr-2">
+                                    <i class="fas fa-star text-xs"></i>
+                                </span>
+                                Reforma de Cozinha Completa
+                            </h3>
+                            <p class="text-sm text-gray-600 flex items-center mt-1">
+                                <i class="fas fa-map-marker-alt mr-1 text-yellow-500 text-xs"></i> 
+                                <span>Centro - 1.2km de distância</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-clock mr-1 text-yellow-500 text-xs"></i>
+                                <span>Publicado há 2 horas</span>
+                            </p>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
+                    </div>
+                    <p class="text-gray-700 mb-3 text-sm">"Preciso de pedreiro para reforma completa da cozinha, incluindo azulejos e bancada. Orçamento flexível para bom profissional."</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Alvenaria</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Reforma</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Cozinha</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="flex -space-x-2">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Interessada 1">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Interessada 2">
+                                <div class="w-8 h-8 rounded-full border-2 border-white bg-gray-100 flex items-center justify-center text-xs font-bold">+3</div>
+                            </div>
+                            <span class="ml-2 text-xs text-gray-500">7 interessados</span>
+                        </div>
+                        <button class="gradient-bg hover:opacity-90 text-white font-semibold px-4 py-2 rounded-full flex items-center space-x-1 transition-all shadow-md">
+                            <span>Ver detalhes</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Service Card 2 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-4 service-card animate__animated animate__fadeIn">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Instalar chuveiro" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 flex items-center">
+                                <span class="bg-yellow-100 text-yellow-800 p-1 rounded mr-2">
+                                    <i class="fas fa-bolt text-xs"></i>
+                                </span>
+                                Instalação de Chuveiro Elétrico
+                            </h3>
+                            <p class="text-sm text-gray-600 flex items-center mt-1">
+                                <i class="fas fa-map-marker-alt mr-1 text-yellow-500 text-xs"></i> 
+                                <span>Vila Nova - 3.5km</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-clock mr-1 text-yellow-500 text-xs"></i>
+                                <span>Publicado hoje</span>
+                            </p>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
+                    </div>
+                    <p class="text-gray-700 mb-3 text-sm">"Chuveiro quebrou, vaza água quando ligado. Preciso de um eletricista para instalar um novo modelo que já comprei. Urgente!"</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Elétrica</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Hidráulica</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Residencial</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="flex -space-x-2">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/65.jpg" alt="Interessada 1">
+                            </div>
+                            <span class="ml-2 text-xs text-gray-500">1 interessado</span>
+                        </div>
+                        <button class="gradient-bg hover:opacity-90 text-white font-semibold px-4 py-2 rounded-full flex items-center space-x-1 transition-all shadow-md">
+                            <span>Ver detalhes</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Service Card 3 -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden mb-4 service-card animate__animated animate__fadeIn">
+                <div class="relative">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Site institucional" class="w-full h-48 object-cover">
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <div>
+                            <h3 class="font-semibold text-gray-800 flex items-center">
+                                <span class="bg-yellow-100 text-yellow-800 p-1 rounded mr-2">
+                                    <i class="fas fa-laptop text-xs"></i>
+                                </span>
+                                Desenvolvimento de Site Institucional
+                            </h3>
+                            <p class="text-sm text-gray-600 flex items-center mt-1">
+                                <i class="fas fa-map-marker-alt mr-1 text-yellow-500 text-xs"></i> 
+                                <span>Online</span>
+                                <span class="mx-2">•</span>
+                                <i class="fas fa-clock mr-1 text-yellow-500 text-xs"></i>
+                                <span>Publicado ontem</span>
+                            </p>
+                        </div>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">Negociação</span>
+                    </div>
+                    <p class="text-gray-700 mb-3 text-sm">"Preciso de um desenvolvedor para criar um site simples para minha pequena empresa. Já tenho domínio e hospedagem. Orçamento de R$ 1.500."</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">TI</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Web</span>
+                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Design</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="flex -space-x-2">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Interessada 1">
+                                <img class="w-8 h-8 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/75.jpg" alt="Interessada 2">
+                            </div>
+                            <span class="ml-2 text-xs text-gray-500">2 interessados</span>
+                        </div>
+                        <button class="gradient-bg hover:opacity-90 text-white font-semibold px-4 py-2 rounded-full flex items-center space-x-1 transition-all shadow-md">
+                            <span>Ver detalhes</span>
+                            <i class="fas fa-arrow-right text-xs"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Load More Button -->
+            <div class="text-center mt-6">
+                <button class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-2 px-6 rounded-full transition-all shadow-sm border border-gray-200 inline-flex items-center">
+                    <i class="fas fa-spinner mr-2 animate-spin hidden"></i>
+                    Carregar mais serviços
+                </button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Filter Sidebar -->
+    <div id="filterSidebar" class="filter-sidebar">
+        <div class="p-4 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="text-lg font-semibold">Filtros</h3>
+                <button id="closeFilter" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        <div class="p-4">
+            <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-3">Categoria</h4>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Elétrica</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Alvenaria</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Mecânica</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">TI</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Vidraçaria</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Design</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-3">Distância</h4>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="radio" name="distance" class="text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Até 5km</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="distance" class="text-yellow-500 focus:ring-yellow-500" checked>
+                        <span class="ml-2 text-gray-700">Até 10km</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="distance" class="text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Até 20km</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="radio" name="distance" class="text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Qualquer distância</span>
+                    </label>
+                </div>
+            </div>
+            <div class="mb-6">
+                <h4 class="font-semibold text-gray-800 mb-3">Status</h4>
+                <div class="space-y-2">
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500" checked>
+                        <span class="ml-2 text-gray-700">Ativo</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Negociação</span>
+                    </label>
+                    <label class="flex items-center">
+                        <input type="checkbox" class="rounded text-yellow-500 focus:ring-yellow-500">
+                        <span class="ml-2 text-gray-700">Concluído</span>
+                    </label>
+                </div>
+            </div>
+            <div class="flex space-x-3">
+                <button class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-colors">
+                    Limpar
+                </button>
+                <button class="flex-1 gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-lg transition-all">
+                    Aplicar
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Overlay for filter sidebar -->
+    <div id="filterOverlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+    
+    <!-- Chat Bubble -->
+    <div class="chat-bubble animate__animated animate__bounceInUp animate__delay-2s">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-20">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-around">
+                <a href="index.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-home text-xl"></i>
+                    <span class="text-xs mt-1">Início</span>
+                </a>
+                <a href="buscar.html" class="py-3 px-4 flex flex-col items-center text-yellow-500 nav-item active">
+                    <i class="fas fa-search text-xl"></i>
+                    <span class="text-xs mt-1">Buscar</span>
+                </a>
+                <a href="novo-servico.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-plus-circle text-xl"></i>
+                    <span class="text-xs mt-1">Novo</span>
+                </a>
+                <a href="creditos.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-wallet text-xl"></i>
+                    <span class="text-xs mt-1">Créditos</span>
+                </a>
+                <a href="perfil.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                    <i class="fas fa-user text-xl"></i>
+                    <span class="text-xs mt-1">Perfil</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- Credit Purchase Modal -->
+    <div id="creditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden animate__animated animate__fadeIn">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 overflow-hidden animate__animated animate__zoomIn">
+            <div class="gradient-bg p-4 text-white">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">Comprar Créditos</h3>
+                    <button id="closeModal" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p class="text-sm opacity-90 mt-1">Seus créditos atuais: <span class="font-bold">120</span></p>
+            </div>
+            <div class="p-6">
+                <div class="space-y-3 mb-6">
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="30" data-price="30">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">30 créditos</h4>
+                            <p class="text-sm text-gray-600">R$ 30,00</p>
+                        </div>
+                        <div class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 1,00/crédito
+                        </div>
+                    </div>
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="55" data-price="50">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">50 créditos + 5 bônus</h4>
+                            <p class="text-sm text-gray-600">R$ 50,00</p>
+                        </div>
+                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 0,91/crédito
+                        </div>
+                    </div>
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="120" data-price="100">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">100 créditos + 20 bônus</h4>
+                            <p class="text-sm text-gray-600">R$ 100,00</p>
+                        </div>
+                        <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 0,83/crédito
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                        <i class="fas fa-gift mr-2"></i> Bônus por volume
+                    </h4>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-yellow-500"></i>
+                            <span>50cr = 55cr (+5 créditos)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-yellow-500"></i>
+                            <span>100cr = 120cr (+20 créditos)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:space-x-3">
+                    <button class="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors border border-gray-300 mb-2 sm:mb-0">
+                        <i class="fas fa-credit-card mr-2"></i> Cartão
+                    </button>
+                    <button class="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors border border-gray-300">
+                        <i class="fab fa-pix mr-2"></i> Pix
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal elements
+            const creditModal = document.getElementById('creditModal');
+            const closeModal = document.getElementById('closeModal');
+            const creditButton = document.getElementById('creditButton');
+            const creditOptions = document.querySelectorAll('.credit-option');
+            
+            // Filter elements
+            const filterButton = document.getElementById('filterButton');
+            const closeFilter = document.getElementById('closeFilter');
+            const filterSidebar = document.getElementById('filterSidebar');
+            const filterOverlay = document.getElementById('filterOverlay');
+            
+            // Open credit modal
+            creditButton.addEventListener('click', function() {
+                creditModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            // Close modals
+            closeModal.addEventListener('click', function() {
+                creditModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modals when clicking outside
+            creditModal.addEventListener('click', function(e) {
+                if (e.target === creditModal) {
+                    creditModal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Credit option selection
+            creditOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    creditOptions.forEach(opt => opt.classList.remove('border-yellow-500', 'bg-yellow-50'));
+                    this.classList.add('border-yellow-500', 'bg-yellow-50');
+                });
+            });
+            
+            // Filter sidebar
+            filterButton.addEventListener('click', function() {
+                filterSidebar.classList.add('open');
+                filterOverlay.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeFilter.addEventListener('click', function() {
+                filterSidebar.classList.remove('open');
+                filterOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+            
+            filterOverlay.addEventListener('click', function() {
+                filterSidebar.classList.remove('open');
+                filterOverlay.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+    </script>
+</body>
+</html>
