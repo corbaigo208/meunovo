@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Money Bee - Meu Perfil</title>
+    <title>Money Bee - Publicar Novo Serviço</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
@@ -73,14 +73,31 @@
             from { transform: translateY(0); }
             to { transform: translateY(-5px); }
         }
+        .image-preview {
+            position: relative;
+            display: inline-block;
+        }
+        .remove-image {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body class="bg-gray-50 font-sans pb-16">
-    <!-- Floating Bee Animation -->
     <div class="fixed top-20 right-10 z-0 opacity-10 floating hidden md:block">
         <i class="fas fa-bug text-yellow-500 text-6xl"></i>
     </div>
-    <!-- Header -->
     <header class="bg-white shadow-sm sticky top-0 z-30">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
@@ -94,15 +111,14 @@
                         <i class="fas fa-coins"></i>
                     </button>
                     <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center badge-animation">+55</span>
-                    <!-- Credit Tooltip -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-3 hidden group-hover:block z-40 animate__animated animate__fadeIn">
                         <p class="text-sm text-gray-700">Você tem <span class="font-bold">120 créditos</span></p>
                         <div class="progress-bar mt-2">
                             <div class="progress-fill" style="width: 60%"></div>
                         </div>
-                        <button class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors">
+                        <a href="creditos.html" class="mt-2 w-full bg-yellow-500 hover:bg-yellow-600 text-white text-sm font-semibold py-1 px-3 rounded-full transition-colors block text-center">
                             Comprar mais
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="relative group">
@@ -110,7 +126,6 @@
                         <i class="fas fa-bell"></i>
                     </button>
                     <span class="absolute -top-1 -right-1 bg-yellow-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">3</span>
-                    <!-- Notifications Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-72 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="border-b px-4 py-2 bg-gray-50">
                             <h3 class="font-semibold text-gray-800">Notificações (3)</h3>
@@ -159,14 +174,13 @@
                     <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
                         <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile" class="w-full h-full object-cover">
                     </div>
-                    <!-- Profile Dropdown -->
                     <div class="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg p-0 hidden group-hover:block z-40 overflow-hidden animate__animated animate__fadeIn">
                         <div class="px-4 py-3 border-b">
                             <p class="text-sm font-medium text-gray-900">João Silva</p>
                             <p class="text-xs text-gray-500">Nível 3 - Abelha Trabalhadora</p>
                         </div>
                         <div class="divide-y">
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                            <a href="perfil.html" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
                                 <i class="fas fa-user mr-2 text-gray-500"></i> Perfil
                             </a>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
@@ -186,222 +200,125 @@
             </div>
         </div>
     </header>
-    <!-- Main Content -->
     <main class="container mx-auto px-4 py-6">
-        <!-- Profile Header -->
         <section class="mb-8 animate__animated animate__fadeIn">
+            <div class="flex items-center mb-4">
+                <a href="index.html" class="text-gray-500 hover:text-gray-700 mr-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h2 class="text-2xl font-bold text-gray-800">Publicar Novo Serviço</h2>
+            </div>
             <div class="bg-white rounded-xl shadow-sm p-6">
-                <div class="flex flex-col md:flex-row items-center">
-                    <div class="w-24 h-24 rounded-full bg-gray-200 overflow-hidden mb-4 md:mb-0 md:mr-6">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="João Silva" class="w-full h-full object-cover">
+                <form>
+                    <div class="mb-6">
+                        <label for="serviceTitle" class="block text-gray-700 font-medium mb-2">Título do Serviço</label>
+                        <input type="text" id="serviceTitle" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Ex: Reforma de cozinha completa">
                     </div>
-                    <div class="flex-1 text-center md:text-left">
-                        <h2 class="text-2xl font-bold text-gray-800">João Silva</h2>
-                        <p class="text-gray-600 mb-2">Pedreiro Especializado</p>
-                        <div class="flex items-center justify-center md:justify-start mb-3">
-                            <div class="flex items-center text-yellow-400 mr-4">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <span class="text-gray-600 text-sm ml-1">4.5 (24 avaliações)</span>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Categoria</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full">
+                                    <i class="fas fa-bolt"></i>
+                                </div>
+                                <span class="text-sm">Elétrica</span>
+                            </button>
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-blue-100 text-blue-600 p-3 rounded-full">
+                                    <i class="fas fa-brick"></i>
+                                </div>
+                                <span class="text-sm">Alvenaria</span>
+                            </button>
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-green-100 text-green-600 p-3 rounded-full">
+                                    <i class="fas fa-car"></i>
+                                </div>
+                                <span class="text-sm">Mecânica</span>
+                            </button>
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-purple-100 text-purple-600 p-3 rounded-full">
+                                    <i class="fas fa-laptop-code"></i>
+                                </div>
+                                <span class="text-sm">TI</span>
+                            </button>
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-red-100 text-red-600 p-3 rounded-full">
+                                    <i class="fas fa-window-maximize"></i>
+                                </div>
+                                <span class="text-sm">Vidraçaria</span>
+                            </button>
+                            <button type="button" class="bg-white hover:bg-gray-50 text-gray-800 font-medium py-3 px-2 rounded-lg flex flex-col items-center space-y-2 transition-all shadow-sm border border-gray-100 hover:border-yellow-200 hover:shadow-md">
+                                <div class="bg-pink-100 text-pink-600 p-3 rounded-full">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <span class="text-sm">Design</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="serviceDescription" class="block text-gray-700 font-medium mb-2">Descrição Detalhada</label>
+                        <textarea id="serviceDescription" rows="5" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Descreva detalhadamente o serviço que você oferece, incluindo materiais, prazos, garantias, etc."></textarea>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="serviceLocation" class="block text-gray-700 font-medium mb-2">Localização</label>
+                        <div class="flex">
+                            <input type="text" id="serviceLocation" class="flex-1 bg-gray-50 rounded-l-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Digite o endereço ou cidade">
+                            <button type="button" class="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 rounded-r-lg transition-colors">
+                                <i class="fas fa-location-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="serviceTags" class="block text-gray-700 font-medium mb-2">Tags (opcional)</label>
+                        <input type="text" id="serviceTags" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="Ex: cozinha, azulejo, bancada (separadas por vírgula)">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2">Orçamento</label>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="budgetMin" class="block text-gray-600 text-sm mb-1">Valor Mínimo (R$)</label>
+                                <input type="number" id="budgetMin" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="0,00">
                             </div>
-                            <div class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Online</div>
+                            <div>
+                                <label for="budgetMax" class="block text-gray-600 text-sm mb-1">Valor Máximo (R$)</label>
+                                <input type="number" id="budgetMax" class="w-full bg-gray-50 rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all" placeholder="0,00">
+                            </div>
                         </div>
-                        <div class="flex flex-wrap justify-center md:justify-start gap-2">
-                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">São Paulo, SP</span>
-                            <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Membro desde 2022</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-0.5 rounded-full">Nível 3 - Abelha Trabalhadora</span>
-                        </div>
+                        <p class="text-gray-500 text-sm mt-2">Deixe em branco se o valor for combinado diretamente com o cliente.</p>
                     </div>
-                    <div class="mt-4 md:mt-0">
-                        <button class="gradient-bg hover:opacity-90 text-white font-semibold py-2 px-4 rounded-full transition-all shadow-md">
-                            <i class="fas fa-edit mr-2"></i> Editar Perfil
+
+                    <div class="mb-8">
+                        <label class="block text-gray-700 font-medium mb-2">Fotos do Serviço (opcional)</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                            <i class="fas fa-cloud-upload-alt text-gray-400 text-3xl mb-3"></i>
+                            <p class="text-gray-600 mb-2">Arraste e solte suas fotos aqui ou clique para selecionar</p>
+                            <p class="text-gray-500 text-sm">Formatos aceitos: JPG, PNG (máx. 5MB)</p>
+                            <input type="file" id="fileInput" class="hidden" accept="image/*" multiple>
+                            <button type="button" id="uploadButton" class="mt-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors">
+                                Selecionar Arquivos
+                            </button>
+                        </div>
+                        <div id="imagePreview" class="mt-4 flex flex-wrap gap-4">
+                            </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button type="submit" class="gradient-bg hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md">
+                            <i class="fas fa-paper-plane mr-2"></i> Publicar Serviço
                         </button>
                     </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Stats and Progress -->
-        <section class="mb-8 animate__animated animate__fadeIn animate__delay-1s">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white rounded-xl shadow-sm p-4">
-                    <div class="flex items-center">
-                        <div class="bg-blue-100 text-blue-600 p-3 rounded-full mr-4">
-                            <i class="fas fa-briefcase text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-600 text-sm">Serviços Concluídos</p>
-                            <p class="text-2xl font-bold text-gray-800">42</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-4">
-                    <div class="flex items-center">
-                        <div class="bg-green-100 text-green-600 p-3 rounded-full mr-4">
-                            <i class="fas fa-comment-dollar text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-600 text-sm">Receita Total</p>
-                            <p class="text-2xl font-bold text-gray-800">R$ 12.450</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-4">
-                    <div class="flex items-center">
-                        <div class="bg-yellow-100 text-yellow-600 p-3 rounded-full mr-4">
-                            <i class="fas fa-medal text-xl"></i>
-                        </div>
-                        <div>
-                            <p class="text-gray-600 text-sm">Nível Atual</p>
-                            <p class="text-2xl font-bold text-gray-800">3</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- About Me -->
-        <section class="mb-8 animate__animated animate__fadeIn animate__delay-2s">
-            <div class="bg-white rounded-xl shadow-sm p-6">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Sobre Mim</h3>
-                <p class="text-gray-700 mb-4">
-                    Sou pedreiro especializado em reformas residenciais com mais de 10 anos de experiência. 
-                    Trabalho com qualidade, pontualidade e transparência. Realizo serviços de alvenaria, 
-                    azulejos, bancadas, pintura e pequenos reparos.
-                </p>
-                <p class="text-gray-700">
-                    Possuo ferramentas próprias e veículo para transporte de materiais. 
-                    Aceito pagamentos via Money Bee ou dinheiro. 
-                    Disponível de segunda a sábado, das 8h às 18h.
-                </p>
-            </div>
-        </section>
-        
-        <!-- Services Offered -->
-        <section class="mb-8 animate__animated animate__fadeIn animate__delay-3s">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-semibold text-gray-800">Serviços Oferecidos</h3>
-                <button class="text-sm text-yellow-600 font-medium hover:underline">
-                    <i class="fas fa-plus mr-1"></i> Adicionar Serviço
-                </button>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
-                    <div class="flex justify-between items-start mb-2">
-                        <h4 class="font-semibold text-gray-800">Reforma de Cozinha</h4>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-3">Reforma completa de cozinhas, incluindo remoção de azulejos antigos, aplicação de novos azulejos e instalação de bancadas.</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Alvenaria</span>
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Azulejo</span>
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Bancada</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-700 font-semibold">R$ 1.200 - R$ 2.500</span>
-                        <div class="flex space-x-2">
-                            <button class="text-gray-500 hover:text-yellow-600">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-gray-500 hover:text-red-600">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-4 border border-gray-200">
-                    <div class="flex justify-between items-start mb-2">
-                        <h4 class="font-semibold text-gray-800">Instalação de Piso</h4>
-                        <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-0.5 rounded-full">Ativo</span>
-                    </div>
-                    <p class="text-gray-600 text-sm mb-3">Instalação de pisos cerâmicos, porcelanatos e laminados em áreas residenciais.</p>
-                    <div class="flex flex-wrap gap-2 mb-3">
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Piso</span>
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Cerâmica</span>
-                        <span class="bg-gray-100 text-gray-800 text-xs font-medium px-2 py-0.5 rounded-full">Porcelanato</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-gray-700 font-semibold">R$ 80/m²</span>
-                        <div class="flex space-x-2">
-                            <button class="text-gray-500 hover:text-yellow-600">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="text-gray-500 hover:text-red-600">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Reviews -->
-        <section class="animate__animated animate__fadeIn animate__delay-4s">
-            <h3 class="text-lg font-semibold text-gray-800 mb-4">Avaliações Recebidas (24)</h3>
-            <div class="space-y-4">
-                <div class="bg-white rounded-xl shadow-sm p-4">
-                    <div class="flex items-start">
-                        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana Silva" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between">
-                                <h4 class="font-semibold text-gray-800">Ana Silva</h4>
-                                <span class="text-gray-500 text-sm">2 dias atrás</span>
-                            </div>
-                            <div class="flex items-center mb-2">
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <span class="text-gray-600 text-sm ml-2">5.0</span>
-                            </div>
-                            <p class="text-gray-700">
-                                Excelente trabalho na reforma da minha cozinha! João foi pontual, profissional e fez um trabalho de alta qualidade. Recomendo muito!
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-4">
-                    <div class="flex items-start">
-                        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden mr-3">
-                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Carlos Mendes" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex-1">
-                            <div class="flex justify-between">
-                                <h4 class="font-semibold text-gray-800">Carlos Mendes</h4>
-                                <span class="text-gray-500 text-sm">1 semana atrás</span>
-                            </div>
-                            <div class="flex items-center mb-2">
-                                <div class="flex text-yellow-400">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star-half-alt"></i>
-                                </div>
-                                <span class="text-gray-600 text-sm ml-2">4.5</span>
-                            </div>
-                            <p class="text-gray-700">
-                                João fez um bom trabalho na instalação do piso da minha sala. Único ponto negativo foi um pequeno atraso na entrega, mas o resultado compensou.
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
         </section>
     </main>
-    <!-- Chat Bubble -->
     <div class="chat-bubble animate__animated animate__bounceInUp animate__delay-2s">
         <i class="fas fa-comment-dots"></i>
     </div>
-    <!-- Bottom Navigation -->
     <nav class="fixed bottom-0 left-0 right-0 bg-white shadow-lg border-t border-gray-100 z-20">
         <div class="container mx-auto px-4">
             <div class="flex justify-around">
@@ -413,7 +330,7 @@
                     <i class="fas fa-search text-xl"></i>
                     <span class="text-xs mt-1">Buscar</span>
                 </a>
-                <a href="novo-servico.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
+                <a href="novo-servico.html" class="py-3 px-4 flex flex-col items-center text-yellow-500 nav-item active">
                     <i class="fas fa-plus-circle text-xl"></i>
                     <span class="text-xs mt-1">Novo</span>
                 </a>
@@ -421,13 +338,80 @@
                     <i class="fas fa-wallet text-xl"></i>
                     <span class="text-xs mt-1">Créditos</span>
                 </a>
-                <a href="perfil.html" class="py-3 px-4 flex flex-col items-center text-yellow-500 nav-item active">
+                <a href="perfil.html" class="py-3 px-4 flex flex-col items-center text-gray-500 hover:text-yellow-500 transition-colors nav-item">
                     <i class="fas fa-user text-xl"></i>
                     <span class="text-xs mt-1">Perfil</span>
                 </a>
             </div>
         </div>
     </nav>
+    <div id="creditModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden animate__animated animate__fadeIn">
+        <div class="bg-white rounded-xl w-full max-w-md mx-4 overflow-hidden animate__animated animate__zoomIn">
+            <div class="gradient-bg p-4 text-white">
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-bold">Comprar Créditos</h3>
+                    <button id="closeModal" class="text-white hover:text-gray-200">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <p class="text-sm opacity-90 mt-1">Seus créditos atuais: <span class="font-bold">120</span></p>
+            </div>
+            <div class="p-6">
+                <div class="space-y-3 mb-6">
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="30" data-price="30">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">30 créditos</h4>
+                            <p class="text-sm text-gray-600">R$ 30,00</p>
+                        </div>
+                        <div class="bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 1,00/crédito
+                        </div>
+                    </div>
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="55" data-price="50">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">50 créditos + 5 bônus</h4>
+                            <p class="text-sm text-gray-600">R$ 50,00</p>
+                        </div>
+                        <div class="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 0,91/crédito
+                        </div>
+                    </div>
+                    <div class="credit-option bg-gray-50 rounded-lg p-4 flex justify-between items-center border-2 border-transparent hover:border-yellow-500 transition-colors cursor-pointer" data-credits="120" data-price="100">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">100 créditos + 20 bônus</h4>
+                            <p class="text-sm text-gray-600">R$ 100,00</p>
+                        </div>
+                        <div class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            R$ 0,83/crédito
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                        <i class="fas fa-gift mr-2"></i> Bônus por volume
+                    </h4>
+                    <ul class="text-sm text-yellow-700 space-y-1">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-yellow-500"></i>
+                            <span>50cr = 55cr (+5 créditos)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle mr-2 text-yellow-500"></i>
+                            <span>100cr = 120cr (+20 créditos)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:space-x-3">
+                    <button class="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors border border-gray-300 mb-2 sm:mb-0">
+                        <i class="fas fa-credit-card mr-2"></i> Cartão
+                    </button>
+                    <button class="flex-1 bg-white hover:bg-gray-50 text-gray-800 font-bold py-3 px-4 rounded-lg transition-colors border border-gray-300">
+                        <i class="fab fa-pix mr-2"></i> Pix
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Modal elements
@@ -435,27 +419,38 @@
             const closeModal = document.getElementById('closeModal');
             const creditButton = document.getElementById('creditButton');
             const creditOptions = document.querySelectorAll('.credit-option');
-            
+
+            // Image upload elements
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.getElementById('uploadButton');
+            const imagePreview = document.getElementById('imagePreview');
+
             // Open credit modal
-            creditButton.addEventListener('click', function() {
-                creditModal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-            });
-            
+            if (creditButton && creditModal) { // Adicionando verificação para garantir que os elementos existem
+                creditButton.addEventListener('click', function() {
+                    creditModal.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+
             // Close modals
-            closeModal.addEventListener('click', function() {
-                creditModal.classList.add('hidden');
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modals when clicking outside
-            creditModal.addEventListener('click', function(e) {
-                if (e.target === creditModal) {
+            if (closeModal && creditModal) { // Adicionando verificação para garantir que os elementos existem
+                closeModal.addEventListener('click', function() {
                     creditModal.classList.add('hidden');
                     document.body.style.overflow = 'auto';
-                }
-            });
-            
+                });
+            }
+
+            // Close modals when clicking outside
+            if (creditModal) { // Adicionando verificação para garantir que o elemento existe
+                creditModal.addEventListener('click', function(e) {
+                    if (e.target === creditModal) {
+                        creditModal.classList.add('hidden');
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+
             // Credit option selection
             creditOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -463,6 +458,43 @@
                     this.classList.add('border-yellow-500', 'bg-yellow-50');
                 });
             });
+
+            // Image upload
+            if (uploadButton && fileInput && imagePreview) { // Adicionando verificação para garantir que os elementos existem
+                uploadButton.addEventListener('click', function() {
+                    fileInput.click();
+                });
+
+                fileInput.addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        if (file.type.match('image.*')) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                const imgContainer = document.createElement('div');
+                                imgContainer.className = 'image-preview';
+
+                                const img = document.createElement('img');
+                                img.src = e.target.result;
+                                img.className = 'h-24 w-24 object-cover rounded';
+
+                                const removeBtn = document.createElement('div');
+                                removeBtn.className = 'remove-image';
+                                removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                                removeBtn.addEventListener('click', function() {
+                                    imgContainer.remove();
+                                });
+
+                                imgContainer.appendChild(img);
+                                imgContainer.appendChild(removeBtn);
+                                imagePreview.appendChild(imgContainer);
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
